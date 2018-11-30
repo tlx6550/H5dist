@@ -277,8 +277,6 @@ body {
 	-moz-box-flex: 0;
 	-ms-flex: 0 0 3.5rem;
 	flex: 0 0 3.5rem;
-    position: relative;
-   /* top: 0.5rem;*/
 	width: 3.5rem
 }
 
@@ -386,7 +384,7 @@ body {
 }
 
 .flex-box .sub-box {
-	margin-bottom: .35rem
+	margin-bottom: .15rem
 }
 
 .flex-box .fl .header {
@@ -411,6 +409,7 @@ body {
 }
 .flex-box .fl .pannel-body {
 	width: 4.8rem;
+	height: 2.2rem;
 	font-size: .16rem;
     background-color: rgba(0, 30, 125, .3);
     background-position: bottom;
@@ -443,6 +442,7 @@ body {
 }
 
 .flex-box .fr .pannel-body {
+	height: 3.45rem;
 	font-size: .16rem;
 	background-color: rgba(0, 30, 125, .3);
 	padding: .3rem .2rem 0 .2rem;
@@ -550,6 +550,13 @@ body {
 	line-height: .25rem;
 	font-size: .16rem
 }
+.flex-box .top-2 .info .app-name {
+	display: inline-block;
+	width: .9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 .flex-box .top-2 .total {
 	margin-top: .12rem
@@ -567,11 +574,11 @@ body {
 }
 
 .flex-box .other-rand {
-	margin-top: .3rem
+	margin-top: .1rem
 }
 
 .flex-box .other-rand .flex-box {
-	margin-top: .3rem;
+	margin-top: .2rem;
 	text-align: center
 }
 

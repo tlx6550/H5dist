@@ -1,143 +1,134 @@
 /*var baseUrl = 'https://easy-mock.com/mock/5bfd0066e14e0125f051fe18/dapi'*/
-var cityCp ={
-      "哈尔滨": [
-        26.38,
-        45.45
-      ],
-      "长春": [
-        125.18,
-        43.55
-      ],
-      "乌鲁木齐": [
-        87.36,
-        43.46
-      ],
-      "沈阳": [
-        123.23,
-        41.48
-      ],
-      "呼和浩特": [
-        111.38,
-        40.48
-      ],
-      "北京": [
-        116.28,
-        39.54
-      ],
-      "天津": [
-        117.1,
-        39.1
-      ],
-      "银川": [
-        106.13,
-        38.28
-      ],
-      "石家庄": [
-        114.26,
-        38.03
-      ],
-      "太原": [
-        112.33,
-        37.51
-      ],
-      "济南": [
-        117.02,
-        36.4
-      ],
-      "西宁": [
-        101.49,
-        36.37
-      ],
-      "兰州": [
-        103.5,
-        36.03
-      ],
-      "郑州": [
-        113.42,
-        34.44
-      ],
-      "西安": [
-        108.55,
-        34.15
-      ],
-      "合肥": [
-        117.16,
-        31.51
-      ],
-      "上海": [
-        121.26,
-        31.12
-      ],
-      "武汉": [
-        114.2,
-        30.37
-      ],
-      "南京": [
-        118.46,
-        32.03
-      ],
-      "成都": [
-        104.04,
-        30.39
-      ],
-      "杭州": [
-        20.1,
-        30.15
-      ],
-      "拉萨": [
-        91.02,
-        29.39
-      ],
-      "重庆": [
-        106.33,
-        29.33
-      ],
-      "南昌": [
-        115.53,
-        28.41
-      ],
-      "长沙": [
-        112.55,
-        28.12
-      ],
-      "贵阳": [
-        106.43,
-        26.34
-      ],
-      "福州": [
-        119.19,
-        26.02
-      ],
-      "昆明": [
-        102.42,
-        25.03
-      ],
-      "台北": [
-        121.31,
-        25.02
-      ],
-      "广州": [
-        113.18,
-        23.1
-      ],
-      "南宁": [
-        108.21,
-        22.47
-      ],
-      "澳门": [
-        113.5,
-        22.2
-      ],
-      "香港": [
-        114.15,
-        22.15
-      ],
-      "海口": [
-        110.1,
-        20.03
-      ]
-    }
-var baseUrl = 'http://fik7h6.natappfree.cc/v'
+var cityCp = {
+	"黑龙江": [
+		26.38,
+		45.45
+	],
+	"吉林": [
+		126.591279,
+		43.872687
+	],
+	"新疆": [
+		87.36,
+		43.46
+	],
+	"辽宁": [
+		123.23,
+		41.48
+	],
+	"内蒙古": [
+		111.38,
+		40.48
+	],
+	"北京": [
+		116.28,
+		39.54
+	],
+	"天津": [
+		117.1,
+		39.1
+	],
+	"宁夏": [
+		106.13,
+		38.28
+	],
+	"河北": [
+		114.26,
+		38.03
+	],
+	"山西": [
+		112.33,
+		37.51
+	],
+	"山东": [
+		117.02,
+		36.4
+	],
+	"青海": [
+		101.49,
+		36.37
+	],
+	"甘肃": [
+		103.5,
+		36.03
+	],
+	"河南": [
+		113.42,
+		34.44
+	],
+	"陕西": [
+		108.55,
+		34.15
+	],
+	"安徽": [
+		117.16,
+		31.51
+	],
+	"上海": [
+		121.26,
+		31.12
+	],
+	"湖北": [
+		114.2,
+		30.37
+	],
+	"江苏": [
+		118.46,
+		32.03
+	],
+	"四川": [
+		104.04,
+		30.39
+	],
+	"浙江": [
+		120.210336,
+		30.264562
+	],
+	"西藏": [
+		91.02,
+		29.39
+	],
+	"重庆": [
+		106.33,
+		29.33
+	],
+	"江西": [
+		115.53,
+		28.41
+	],
+	"湖南": [
+		112.55,
+		28.12
+	],
+	"贵州": [
+		106.43,
+		26.34
+	],
+	"福建": [
+		119.19,
+		26.02
+	],
+	"云南": [
+		102.42,
+		25.03
+	],
+	"广东": [
+		113.18,
+		23.1
+	],
+	"广西": [
+		108.21,
+		22.47
+	],
+	"海南": [
+		110.1,
+		20.03
+	]
+}
+//var baseUrl = 'http://10.9.12.10:8080/v'
+var PIERAND = 1000;
+//var imgUrl = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543496484870&di=040d5a1b26b462b6fd57297a4dc3433d&imgtype=0&src=http%3A%2F%2Fs13.sinaimg.cn%2Fmw690%2F004lDxWVzy77sFS6jcodc%26690'
+var baseUrl = window.location.protocol + '//' + window.location.host + '/v';
 var that = new Vue({
 	el: '#app',
 	data: {
@@ -148,14 +139,16 @@ var that = new Vue({
 		downloadTrafficTop: '',
 		topT12: '',
 		other12: '',
-		appTop18:'',
-		gameTop18:'',
+		appTop18: '',
+		gameTop18: '',
 		cityData: '',
 		showR1: false,
 		leftChartFlag: false,
 		r1Temp: 0,
 		nowDate: '',
 		nowTime: '',
+		toTalValueFen:'',//分省总量
+		downLoadTotal:'',//下载总量
 		commonOption: {
 			tooltip: {
 				trigger: 'axis',
@@ -166,7 +159,7 @@ var that = new Vue({
 			grid: {
 				left: '5%',
 				right: '0%',
-				top: '0%',
+				top: '8%',
 				bottom: 0,
 				containLabel: true
 			},
@@ -182,17 +175,36 @@ var that = new Vue({
 		myChartFen2: '',
 		myChartUser2: '',
 		myChartLiu2: '',
+		mapChart:''
 	},
 	methods: {
 		getTop12() {
 			axios.post(baseUrl + '/screenData/top10?key=downloadApp')
 				.then(function(response) {
-					console.log(response)
-					that.appTop18 = response.data.data
-					//json排序
-					that.appTop18.sort(function(x, y) {
-						return y.value - x.value;
-					})
+					var resData = response.data.data
+					if(resData != null || resData != undefined || resData != '') {
+						var temp = []
+						resData.forEach(function(item) {
+							var changeUrl = encodeURIComponent(item.icon);
+							var obj = {
+								"icon": baseUrl + '/screenData/img?url=' + changeUrl,
+								//"icon":imgUrl,
+								"name": item.name,
+								"value": item.value
+							}
+							if(!(obj.name == '必备应用' || obj.name == 'MM应用商场')) {
+								temp.push(obj)
+							}
+
+						})
+
+						that.appTop18 = temp
+						//json排序
+						that.appTop18.sort(function(x, y) {
+							return y.value - x.value;
+						})
+					}
+
 				})
 				.catch(function(error) {
 					console.log(error);
@@ -201,17 +213,32 @@ var that = new Vue({
 		getTopOther12() {
 			axios.post(baseUrl + '/screenData/top10?key=downloadGame')
 				.then(function(response) {
-					that.gameTop18 = response.data.data
-					//json排序
-					that.gameTop18.sort(function(x, y) {
-						return y.value - x.value;
-					})
+					var resData = response.data.data
+					if(resData != null || resData != undefined || resData != '') {
+						var temp = []
+						resData.forEach(function(item) {
+							var changeUrl = encodeURIComponent(item.icon);
+							var obj = {
+								"icon": baseUrl + '/screenData/img?url=' + changeUrl,
+								//"icon":imgUrl,
+								"name": item.name,
+								"value": item.value
+							}
+							temp.push(obj)
+						})
+
+						that.gameTop18 = temp
+						//json排序
+						that.gameTop18.sort(function(x, y) {
+							return y.value - x.value;
+						})
+					}
 				})
 				.catch(function(error) {
 					console.log(error);
 				});
 		},
-		showOrHide() {
+		showOrHide() {//切屏时间
 			setInterval(function() {
 				that.r1Temp++;
 				var tag = that.r1Temp % 2 == 0 ? true : false
@@ -222,7 +249,7 @@ var that = new Vue({
 					that.showR1 = false
 					that.leftChartFlag = false
 				}
-			}, 6000)
+			}, 12 *1000)
 		},
 		initChart() {
 			// 基于准备好的dom，初始化echarts实例
@@ -251,6 +278,13 @@ var that = new Vue({
 					},
 					data: this.yAxisData6F
 				},
+				xAxis: {
+					show: false, //隐藏y轴坐标线
+					type: 'value',
+					boundaryGap: [0, 0.01],
+					min: 0,
+					max: 400000
+				},
 				series: [{
 					type: 'bar',
 					data: this.seriesData6F
@@ -272,6 +306,13 @@ var that = new Vue({
 						show: false
 					},
 					data: this.yAxisData6U
+				},
+				xAxis: {
+					show: false, //隐藏y轴坐标线
+					type: 'value',
+					boundaryGap: [0, 0.01],
+					min: 0,
+					max: 70000
 				},
 				series: [{
 					type: 'bar',
@@ -296,10 +337,16 @@ var that = new Vue({
 					},
 					data: this.yAxisData6L
 				},
+				xAxis: {
+					show: false, //隐藏y轴坐标线
+					type: 'value',
+					boundaryGap: [0, 0.01],
+					min: 0,
+					max: 8000
+				},
 				series: [{
 					type: 'bar',
 					data: this.seriesData6L,
-
 				}, ]
 			}
 
@@ -318,6 +365,13 @@ var that = new Vue({
 						show: false
 					},
 					data: this.yAxisData12F
+				},
+				xAxis: {
+					show: false, //隐藏y轴坐标线
+					type: 'value',
+					boundaryGap: [0, 0.01],
+					min: 0,
+					max: 400000
 				},
 				series: [{
 					type: 'bar',
@@ -341,6 +395,13 @@ var that = new Vue({
 					},
 					data: this.yAxisData12U
 				},
+				xAxis: {
+					show: false, //隐藏y轴坐标线
+					type: 'value',
+					boundaryGap: [0, 0.01],
+					min: 0,
+					max: 70000
+				},
 				series: [{
 					type: 'bar',
 					data: this.seriesData12U,
@@ -363,6 +424,13 @@ var that = new Vue({
 						show: false
 					},
 					data: this.yAxisData12L
+				},
+				xAxis: {
+					show: false, //隐藏y轴坐标线
+					type: 'value',
+					boundaryGap: [0, 0.01],
+					min: 0,
+					max: 8000
 				},
 				series: [{
 					type: 'bar',
@@ -388,74 +456,114 @@ var that = new Vue({
 			this.myChartLiu2.setOption(initOptions31);
 		},
 		//柱状图数据
-		getScreenDataT10() {
-			/*        	downloadProvinceTop6:'',
-					downloadProvinceTop12:'',
-					downloadUserTop6:'',
-					downloadUserTop12:'',
-					downloadTrafficTop6:'',
-					downloadTrafficop12:'',*/
+		getDownloadTraffic(){
 			var that = this
-			// --流量
-			axios.post(baseUrl + '/screenData/top10?key=downloadTraffic')
+		// --流量
+		 return	axios.post(baseUrl + '/screenData/top10?key=downloadTraffic&num=12')
 				.then(function(res) {
 					var resData = res.data.data
-					if(resData!=null || resData!=undefined || resData!=''){
-					var dataObj = that.exchanDataTobar(res.data.data)
-					//绘图数据的顺序和排序刚好相反，前端展示的和实际顺序一样
-					//slice实现数组拷贝
-					that.downloadTrafficTop = dataObj.topData.slice(0).reverse()
-					that.yAxisData6L = dataObj.yAxisData.slice(6, 12)
-					that.seriesData6L = dataObj.seriesData.slice(6, 12)
-					that.yAxisData12L = dataObj.yAxisData.slice(0, 6)
-					that.seriesData12L = dataObj.seriesData.slice(0, 6)
-					that.initChart()
+					if(resData != null || resData != undefined || resData != '') {
+						//图例数据转换
+						resData = resData.map(function(item){
+							return {
+								name: item.name,
+								value: Math.ceil(item.value/1024/1024)
+							}
+						})
+						var dataObj = that.exchanDataTobar(resData)
+						//绘图数据的顺序和排序刚好相反，前端展示的和实际顺序一样
+						//slice实现数组拷贝
+						that.downloadTrafficTop = dataObj.topData.slice(0).reverse()
+						that.yAxisData6L = dataObj.yAxisData.slice(6, 12)
+						that.seriesData6L = dataObj.seriesData.slice(6, 12)
+						that.yAxisData12L = dataObj.yAxisData.slice(0, 6)
+						that.seriesData12L = dataObj.seriesData.slice(0, 6)
+						//that.initChart()
 					}
 				})
 				.catch(function(error) {
 					console.log(error);
 				});
-				
+		},
+		getDownloadProvince(){
+			var that = this
 			//分省下载量
-			axios.post(baseUrl + '/screenData/top10?key=downloadProvince')
+		 return	axios.post(baseUrl + '/screenData/top10?key=downloadProvince')
 				.then(function(res) {
 					var resData = res.data.data
-					if(resData!=null || resData!=undefined || resData!=''){
-						var dataObj = that.exchanDataTobar(res.data.data)
-					//绘图数据的顺序和排序刚好相反，前端展示的和实际顺序一样
-					//slice实现数组拷贝
-					that.downloadProvinceTop = dataObj.topData.slice(0).reverse()
-					that.yAxisData6F = dataObj.yAxisData.slice(6, 12)
-					that.seriesData6F = dataObj.seriesData.slice(6, 12)
-					that.yAxisData12F = dataObj.yAxisData.slice(0, 6)
-					that.seriesData12F = dataObj.seriesData.slice(0, 6)
-					that.initChart()
+					if(resData != null || resData != undefined || resData != '') {
+						//展示数据比例转换
+						var sum = 0;
+						resData.forEach(function(item){
+							sum += item.value
+						})
+						that.toTalValueFen = sum
+						resData = resData.map(function(item){
+							return {
+								name: item.name,
+								value: Math.ceil(item.value/sum * that.downLoadTotal)
+							}
+						})
+						
+						var dataObj = that.exchanDataTobar(resData)
+						//绘图数据的顺序和排序刚好相反，前端展示的和实际顺序一样
+						//slice实现数组拷贝
+						that.downloadProvinceTop = dataObj.topData.slice(0).reverse()
+						var len = dataObj.seriesData.length
+						that.yAxisData6F = dataObj.yAxisData.slice(len-6, len)
+						that.seriesData6F = dataObj.seriesData.slice(len-6, len)
+						that.yAxisData12F = dataObj.yAxisData.slice(len-12, len-6)
+						that.seriesData12F = dataObj.seriesData.slice(len-12, len-6)
+						//that.initChart()
 					}
-					
+
 				})
 				.catch(function(error) {
 					console.log(error);
+				
 				});
-		//用户
-			axios.post(baseUrl + '/screenData/top10?key=downloadUser')
+		},
+		getDwnloadProvince(){
+			var that = this
+			//用户
+		  return axios.post(baseUrl + '/screenData/top10?key=downloadUser&num=12')
 				.then(function(res) {
 					var resData = res.data.data
-					if(resData!=null || resData!=undefined || resData!=''){
-						var dataObj = that.exchanDataTobar(res.data.data)
-					//绘图数据的顺序和排序刚好相反，前端展示的和实际顺序一样
-					//slice实现数组拷贝
-					that.downloadUserTop = dataObj.topData.slice(0).reverse()
-					that.yAxisData6U = dataObj.yAxisData.slice(6, 12)
-					that.seriesData6U = dataObj.seriesData.slice(6, 12)
-					that.yAxisData12U = dataObj.yAxisData.slice(0, 6)
-					that.seriesData12U = dataObj.seriesData.slice(0, 6)
-					that.initChart()
+					if(resData != null || resData != undefined || resData != '') {
+						//图例数据转换
+						resData = resData.map(function(item){
+							return {
+								name: item.name,
+								value: item.value * 6
+							}
+						})
+						
+						
+						var dataObj = that.exchanDataTobar(resData)
+						//绘图数据的顺序和排序刚好相反，前端展示的和实际顺序一样
+						//slice实现数组拷贝
+						that.downloadUserTop = dataObj.topData.slice(0).reverse()
+						that.yAxisData6U = dataObj.yAxisData.slice(6, 12)
+						that.seriesData6U = dataObj.seriesData.slice(6, 12)
+						that.yAxisData12U = dataObj.yAxisData.slice(0, 6)
+						that.seriesData12U = dataObj.seriesData.slice(0, 6)
+						//that.initChart()
 					}
-					
+
 				})
 				.catch(function(error) {
 					console.log(error);
-				});		
+					
+				});
+		},
+		getScreenDataT10() {
+			var that = this
+			axios.all([that.getDownloadTraffic(), that.getDownloadProvince(),that.getDwnloadProvince()])
+			.then(axios.spread(function (acct, perms) {
+			    // 柱状图请求现在都执行完成
+			    that.initChart()
+			  }));
+
 		},
 		//柱状图构造返回数据格式
 		exchanDataTobar(arrData) {
@@ -489,126 +597,185 @@ var that = new Vue({
 		},
 		getCityData() {
 			var that = this
-			return new Promise(function(resolve, reject) {
-				axios.post(baseUrl + '/screenData/top10?key=mapData')
+			return axios.post(baseUrl + '/screenData/top10?key=mapData')
 					.then(function(res) {
-					var resData = res.data.data
-					if(resData!=null || resData!=undefined || resData!=''){
-						that.cityData = res.data.data
-						that.geoCoordMap = cityCp
-                        var seriesData =  that.convertData(that.cityData)
-                        var showSeriesData  = seriesData.slice(0)
-                        var sortData =  that.convertData(that.cityData.sort(function(a, b) {
-										return b.value - a.value;
-									}).slice(0, 6))
-						// 2、map的配置，配置 option，新建一个地理坐标系 geo ，地图类型为中国地图
-						that.mapoption = {
-							tooltip: {
-								trigger: 'item',
-								 formatter: function(params) {
-								  let html = ''
-				                    html = '<div>下载量</div>'+
-				                            '<div><span style="display:inline-block;width: 16px;height: 16px;' +
-				                             'border-radius: 50%;margin-right:3px;vertical-align:middle;background-color: '+ params.color+' ">' +
-				                            '</span>'+ params.name + ':' + params.value[2]+'</div>'
-				                 return html;
-				            }
-							},
-							geo: {
-								map: 'china',
-								label: {
-									emphasis: {
-										show: false
-									}
-								},
-								roam: true,
-								itemStyle: {
-									// 普通状态下的样式
-									normal: {
-										areaColor: 'transparent',
-										borderColor: '#3fdaff',
-										borderWidth: 2,
-										shadowColor: 'rgba(63, 218, 255, 0.5)',
-										shadowBlur: 30
-									},
-									// 高亮状态下的样式
-									emphasis: {
-										areaColor: '#2B91B7',
-									}
+						var resData = res.data.data
+						//展示数据比例转换
+						var sum = 0;
+						resData.forEach(function(item){
+							sum += item.value
+						})
+						that.toTalValueFen = sum
+						resData = resData.map(function(item){
+							return {
+								name: item.name,
+								value: Math.ceil(item.value/sum * that.downLoadTotal)
+							}
+						})
+
+
+
+						//求平均数
+						var arrTemp = []
+						resData.forEach(function(item) {
+							arrTemp.push(item.value)
+						})
+
+						function arrAverageNum(arr) {
+							var sum = 0;
+							for(var i = 0; i < arr.length; i++) {
+								sum += arr[i];
+							};
+							return ~~(sum / arr.length * 100) / 100;
+						}
+						PIERAND = arrAverageNum(arrTemp) / 6
+						if(resData != null || resData != undefined || resData != '') {
+							var temp = resData.map(function(item) {
+								return {
+									'name': item.name,
+									'value': item.value
 								}
-							},
-							series: [{
-									name: '下载量',
-									type: 'scatter',
-									coordinateSystem: 'geo',
-									data: showSeriesData,
-									symbolSize: function(val) {
-										return val[2] / 50;
+							})
+
+							that.cityData = temp
+							that.geoCoordMap = cityCp
+							var mapSeriesData = that.convertData(that.cityData)
+							//var showSeriesData = seriesData.slice(0)
+							var sortData = that.convertData(that.cityData.sort(function(a, b) {
+								return b.value - a.value;
+							}).slice(0, 6))
+							// 2、map的配置，配置 option，新建一个地理坐标系 geo ，地图类型为中国地图
+							that.mapoption = {
+								tooltip: {
+									padding:0,
+									trigger: 'item',
+									formatter: function(params) {
+										let html = ''
+										html = '<div>'+
+										        '<div style="dispaly:block;border: 1px solid #fbef1a69;padding:5px;font-size:18px;">' + params.name + ':' + params.value[2] + '</div>'+ 
+										      '</div>'
+										return html
 									},
+									position: function(point, params, dom, rect, size) {
+										//其中point为当前鼠标的位置，size中有两个属性：viewSize和contentSize，分别为外层div和tooltip提示框的大小
+										var x = point[0]; //
+										var y = point[1];
+										var viewWidth = size.viewSize[0];
+										var viewHeight = size.viewSize[1];
+										var boxWidth = size.contentSize[0];
+										var boxHeight = size.contentSize[1];
+										var posX = 0; //x坐标位置
+										var posY = 0; //y坐标位置
+
+										if(x < boxWidth) { //左边放不开
+											posX = 5;
+										} else { //左边放的下
+											posX = x - boxWidth;
+										}
+
+										if(y < boxHeight) { //上边放不开
+											posY = 5;
+										} else { //上边放得下
+											posY = y - boxHeight;
+										}
+
+										return [posX+boxWidth, posY+boxHeight];
+
+									},
+
+								},
+								geo: {
+									map: 'china',
 									label: {
-										normal: {
-											formatter: '{b}',
-											position: 'right',
-											show: false
-										},
 										emphasis: {
-											show: true
+											show: false
 										}
 									},
+									roam: true,
 									itemStyle: {
+										// 普通状态下的样式
 										normal: {
-											color: '#ddb926'
+											areaColor: 'transparent',
+											borderColor: '#3fdaff',
+											borderWidth: 2,
+											shadowColor: 'rgba(63, 218, 255, 0.5)',
+											shadowBlur: 30
+										},
+										// 高亮状态下的样式
+										emphasis: {
+											areaColor: '#2B91B7',
 										}
 									}
 								},
-								{
-									name: 'Top 5',
-									type: 'effectScatter',
-									coordinateSystem: 'geo',
-									data: sortData,
-									symbolSize: function(val) {
-										return val[2] / 50;
-									},
-									showEffectOn: 'render',
-									rippleEffect: {
-										brushType: 'stroke'
-									},
-									hoverAnimation: true,
-									label: {
-										normal: {
-											formatter: '{b}',
-											position: 'right',
-											show: true
+								series: [{
+										name: '下载量',
+										type: 'scatter',
+										coordinateSystem: 'geo',
+										data: that.convertData(that.cityData),
+										symbolSize: function(val) {
+											return val[2] / PIERAND;
+										},
+										label: {
+											normal: {
+												formatter: '{b}',
+												position: 'right',
+												show: false
+											},
+											emphasis: {
+												show: true
+											}
+										},
+										itemStyle: {
+											normal: {
+												color: '#ddb926'
+											}
 										}
 									},
-									itemStyle: {
-										normal: {
-											color: '#f4e925',
-											shadowBlur: 10,
-											shadowColor: '#333'
-										}
-									},
-									zlevel: 1
-								}
-							]
-						};
-						that.setMapChart()
-						resolve(res.data);
-					}
-						
+									{
+										name: 'Top 5',
+										type: 'effectScatter',
+										coordinateSystem: 'geo',
+										data: sortData,
+										symbolSize: function(val) {
+											return val[2] / PIERAND;
+										},
+										showEffectOn: 'render',
+										rippleEffect: {
+											brushType: 'stroke'
+										},
+										hoverAnimation: true,
+										label: {
+											normal: {
+												formatter: '{b}',
+												position: 'right',
+												show: true
+											}
+										},
+										itemStyle: {
+											normal: {
+												color: '#f4e925',
+												shadowBlur: 10,
+												shadowColor: '#333'
+											}
+										},
+										zlevel: 1
+									}
+								]
+							};
+
+						}
+
 					})
 					.catch(function(error) {
-						reject(error);
 					});
-			});
 
 		},
 		//（4）将数据和城市坐标对应上
 		convertData(data) {
-			
+
 			var res = [];
 			for(var i = 0; i < data.length; i++) {
-				
+
 				var geoCoord = this.geoCoordMap[data[i].name];
 				if(geoCoord) {
 					res.push({
@@ -626,7 +793,7 @@ var that = new Vue({
 		setMapChart() {
 			var that = this
 			//3、调用 setOption(option) 为图表设置配置项
-			this.mapChart.setOption(that.mapoption);
+			that.mapChart.setOption(that.mapoption);
 			// 动态显示tootip
 			var faultByHourIndex = 0; //播放所在下标
 			var faultByHourTime = setInterval(function() { //使得tootip每隔三秒自动显示
@@ -639,24 +806,32 @@ var that = new Vue({
 				// mapoption.series[0].data.length 是已报名纵坐标数据的长度
 				if(faultByHourIndex > that.mapoption.series[0].data.length) {
 					faultByHourIndex = 0;
+					//去掉定时器的方法  
+				    window.clearInterval(faultByHourTime)
 				}
-			}, 3000);
+			}, 10 * 1000);
 		},
 		setTotalDownNum() {
-			axios.post(baseUrl + '/screenData/total')
+			var that = this
+			return new Promise(function(resolve, reject) {
+				axios.post(baseUrl + '/screenData/total')
 				.then(function(res) {
 					var resData = res.data.data
-					if(resData!=null || resData!=undefined || resData!=''){
+					if(resData != null || resData != undefined || resData != '') {
 						var total = res.data.data.downloadTotal
-					$('.down-app-total').rollNum({
-						deVal: parseInt(total)
-					});
+						that.downLoadTotal = total
+						$('.down-app-total').empty()
+						$('.down-app-total').rollNum({
+							deVal: total
+						});	
+						resolve(total);
 					}
-					
 				})
 				.catch(function(error) {
-					console.log(error);
+					reject(error);
 				});
+			})
+
 		},
 		setDate() {
 			var date = new Date();
@@ -681,6 +856,8 @@ var that = new Vue({
 			}
 			this.nowTime = hour + ":" + minutes + ":" + seconds;
 		},
+	},
+	watch: {
 	},
 	created: function() {
 		//获取地图数据
@@ -727,6 +904,7 @@ var that = new Vue({
 		})(window, 1920); //750为设计稿宽度px值,根据实际设计稿大小对应设置
 	},
 	mounted: function() {
+		var that = this
 		$('.fensheng-down').css({
 			"width": 4 * window.FONTSIZE + "px",
 			"height": 2.5 * window.FONTSIZE + "px"
@@ -739,37 +917,56 @@ var that = new Vue({
 			"width": 8.8 * window.FONTSIZE + "px",
 			"height": 6.7 * window.FONTSIZE + "px"
 		})
+		this.initMapChart()
+		//首次加载获取接口
 		this.getTop12()
 		this.getTopOther12()
+		
+		
+		
 		this.showOrHide()
+		//时间
 		this.setDate()
-
 		setInterval(() => {
 			this.setDate()
-		}, 1000 * 60 * 60)
+		}, 1000)
 		this.setTime()
 		setInterval(() => {
 			this.setTime()
 		}, 1000)
-
-		this.setTotalDownNum()
-		setInterval(() => {
-			this.setTotalDownNum()
-		}, 6000)
-		this.getScreenDataT10()
-		this.initMapChart()
-		this.getCityData()
 		
-		setInterval(() => {
-			this.getTop12()
-		    this.getTopOther12()
-			this.getCityData()
+       //中间下载量
+		this.setTotalDownNum().then(()=>{
+  			//必须保证下载总量在前面获取到
 			this.getScreenDataT10()
-		}, 1000 * 60 * 3)
-		
-		setInterval(() => {
-			this.setTotalDownNum()
-		}, 6000)
+			//地图数据也需要依赖总量转换
+			axios.all([that.getCityData()])
+			  .then(axios.spread(function (acct, perms) {
+			    // 请求现在都执行完成
+			    that.setMapChart()
+			  }));
+		})
+
+		setInterval(() => { //图例接口延迟
+			//接口轮询请求
+			
+			//右侧下载量
+			this.getTop12()
+			this.getTopOther12()
+			//地图数据
+			this.getCityData().then(()=>{
+				this.setMapChart()
+			})
+			
+			//中间下载量
+			this.setTotalDownNum().then(()=>{
+			  //必须保证下载总量在前面获取到
+			this.getScreenDataT10()
+
+		})
+			
+		}, 1000 * 30 )
+
 	},
 
 })
