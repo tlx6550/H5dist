@@ -456,13 +456,28 @@ body {
 }
 
 .flex-box .middle-box .map {
+	position: relative;
 	text-align: center;
 	width: 100%;
 }
 .flex-box .middle-box .china-map {
+	font-size: 0;
 	margin: 0 auto;
 }
+.flex-box .middle-box .xintiao-map{
+	position: relative;
+	left:0.1rem;
+	top: -1.2rem;
 
+}
+.xintiaoMap-title {
+	color:#fff;
+	font-size: .16rem;
+	text-align: left;
+	position: relative;
+	left:.35rem;
+	top: -0.8rem;
+}
 .flex-box .middle-box .map img {
 	width: 100%
 }

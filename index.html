@@ -5,13 +5,13 @@
 		<meta charset=UTF-8>
 		<meta name=viewport content="width=device-width,initial-scale=1" />
 		<title> MM应用分发实时数据 </title>
-		<link href="index.css" rel="stylesheet">
+		<link href="index.css?v=1.5" rel="stylesheet">
 		<!--<link href="css/odometer-theme-car.css" rel="stylesheet">-->
 		<script src = "js/polyfill.min.js"></script> 
 		<script type="text/javascript" src="js/vue.js"></script>
 	</head>
 
-	<body>
+	<body style="overflow-y: hidden">
 		<div id="app">
 			<div class=daping-wrap>
 				<div class=content>
@@ -80,10 +80,12 @@
 										<div class="item flex-item text-gradient">{{nowTime}}</div>
 									</div>
 								</div>
-								<div  class="total down-app-total totalOne"></div>
+								<div  class="total down-app-total totalOne "></div>
 <!--								<div v-if="!totalFlag" ref="totalTwo" class="total down-app-total totalTwo"></div>-->
 								<div class=map>
 									<div ref="chinaMap" class=china-map></div>
+									<div ref="xintiaoMap" class="xintiao-map">
+									</div>
 								</div>
 							</div>
 						</div>
@@ -288,12 +290,13 @@
 
 		</div>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!--	<script type="text/javascript" src="js/odometer.min.js"></script>-->
 		<script type="text/javascript" src="js/echarts.js"></script>
 		<script type="text/javascript" src="js/chinaJson.js"></script>
 		<script type="text/javascript" src="js/china.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script src="js/axios.min.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/main.js?v=1.8"></script>
 	</body>
 
 </html>

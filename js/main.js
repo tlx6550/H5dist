@@ -1,8 +1,8 @@
 /*var baseUrl = 'https://easy-mock.com/mock/5bfd0066e14e0125f051fe18/dapi'*/
 var cityCp = {
 	"黑龙江": [
-		26.38,
-		45.45
+		126.63,
+		45.74
 	],
 	"吉林": [
 		126.591279,
@@ -73,7 +73,7 @@ var cityCp = {
 		30.37
 	],
 	"江苏": [
-		118.46,
+		119.46,
 		32.03
 	],
 	"四川": [
@@ -125,7 +125,7 @@ var cityCp = {
 		20.03
 	]
 }
-//var baseUrl = 'http://10.9.12.10:8080/v'
+//var baseUrl = 'http://192.168.43.128:8080/v'
 var PIERAND = 1000;
 //var imgUrl = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543496484870&di=040d5a1b26b462b6fd57297a4dc3433d&imgtype=0&src=http%3A%2F%2Fs13.sinaimg.cn%2Fmw690%2F004lDxWVzy77sFS6jcodc%26690'
 var baseUrl = window.location.protocol + '//' + window.location.host + '/v';
@@ -143,12 +143,12 @@ var that = new Vue({
 		gameTop18: '',
 		cityData: '',
 		showR1: false,
-		leftChartFlag: false,
+		leftChartFlag: true,
 		r1Temp: 0,
 		nowDate: '',
 		nowTime: '',
-		toTalValueFen:'',//分省总量
-		downLoadTotal:'',//下载总量
+		toTalValueFen: '', //分省总量
+		downLoadTotal: '', //下载总量
 		commonOption: {
 			tooltip: {
 				trigger: 'axis',
@@ -175,7 +175,11 @@ var that = new Vue({
 		myChartFen2: '',
 		myChartUser2: '',
 		myChartLiu2: '',
-		mapChart:''
+		mapChart: '',
+		showTooltipGloble: true,
+		faultByHourIndex: 0,
+		xinChart: '',
+		xinData: ''
 	},
 	methods: {
 		getTop12() {
@@ -238,7 +242,7 @@ var that = new Vue({
 					console.log(error);
 				});
 		},
-		showOrHide() {//切屏时间
+		showOrHide() { //切屏时间
 			setInterval(function() {
 				that.r1Temp++;
 				var tag = that.r1Temp % 2 == 0 ? true : false
@@ -249,7 +253,7 @@ var that = new Vue({
 					that.showR1 = false
 					that.leftChartFlag = false
 				}
-			}, 12 *1000)
+			}, 12 * 1000)
 		},
 		initChart() {
 			// 基于准备好的dom，初始化echarts实例
@@ -283,7 +287,7 @@ var that = new Vue({
 					type: 'value',
 					boundaryGap: [0, 0.01],
 					min: 0,
-					max: 400000
+					max: 500000
 				},
 				series: [{
 					type: 'bar',
@@ -342,7 +346,7 @@ var that = new Vue({
 					type: 'value',
 					boundaryGap: [0, 0.01],
 					min: 0,
-					max: 8000
+					max: 42000
 				},
 				series: [{
 					type: 'bar',
@@ -371,7 +375,7 @@ var that = new Vue({
 					type: 'value',
 					boundaryGap: [0, 0.01],
 					min: 0,
-					max: 400000
+					max: 500000
 				},
 				series: [{
 					type: 'bar',
@@ -430,7 +434,7 @@ var that = new Vue({
 					type: 'value',
 					boundaryGap: [0, 0.01],
 					min: 0,
-					max: 8000
+					max: 42000
 				},
 				series: [{
 					type: 'bar',
@@ -455,19 +459,152 @@ var that = new Vue({
 			this.myChartUser2.setOption(initOptions21);
 			this.myChartLiu2.setOption(initOptions31);
 		},
-		//柱状图数据
-		getDownloadTraffic(){
+		initXinChart() {
+			this.xinChart = echarts.init(this.$refs.xintiaoMap);
+		},
+		setDataXinChart() {
 			var that = this
-		// --流量
-		 return	axios.post(baseUrl + '/screenData/top10?key=downloadTraffic&num=12')
+			var xinOption = {
+				/*				tooltip: {
+									trigger: 'axis',
+									formatter: function(params) {
+										params = params[0];
+										var date = new Date(params.name);
+										return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+									},
+									axisPointer: {
+										animation: false
+									}
+								},*/
+/*				grid: {
+					left: 'auto',
+					height: 'auto',
+					x: 80,
+					y: 60,
+					x2: 20,
+					y2:20
+				},*/
+				xAxis: {
+					type: 'category',
+					splitLine: {
+						show: false
+					},
+					axisLabel: {
+						show: true,
+						textStyle: {
+							color: '#75DEFF'
+						}
+					},
+					axisLine: {
+						lineStyle: {
+							color: '#75DEFF',
+							width: 1, //这里是为了突出显示加上的
+						}
+					}
+
+				},
+				yAxis: {
+					type: 'value',
+					boundaryGap: [0, '100%'],
+					splitLine: {
+						show: false
+					},
+					axisLabel: {
+						formatter: '{value}',
+						textStyle: {
+							color: '#75DEFF'
+						}
+					},
+					axisLine: {
+						lineStyle: {
+							color: '#75DEFF',
+							width: 1, //这里是为了突出显示加上的
+						}
+					}
+				},
+				series: [{
+					name: '30分钟下载量趋势',
+					type: 'line',
+					color: '#74DDFF',
+					areaStyle: {
+						normal: {
+							color: new echarts.graphic.LinearGradient(137, 189, 27, 1, [{
+								offset: 0,
+								color: 'rgba(137, 189, 27, 0.3)'
+							}, {
+								offset: 0.8,
+								color: 'rgba(40,82,97,1)'
+							}], false),
+							shadowBlur: 10
+						}
+					},
+					showSymbol: false,
+					hoverAnimation: false,
+					data: that.xinData,
+					smooth: true
+				}]
+			}
+
+			that.xinChart.setOption(xinOption);
+			/*			setInterval(function() {
+
+							for(var i = 0; i < 5; i++) {
+								xinData.shift();
+								xinData.push(randomData());
+							}
+
+							that.xinChart.setOption(xinOption);
+						}, 3000);*/
+
+		},
+		getDownloadPeriod() {
+			var that = this
+			// --心跳数据
+			return axios.post(baseUrl + '/screenData/top10?key=downloadPeriod&sort=0')
+				.then(function(res) {
+					var resData = res.data.data
+					if(resData != null || resData != undefined || resData != '') {
+						var sortData = resData.sort(function(x,y){
+							return parseInt(y.name)-parseInt(x.name)
+						})
+
+						resData = sortData.map(function(item) {
+							var timeObj = that.formaTime(item.name)
+							var time = timeObj.H + ':' + timeObj.M + ':' + timeObj.S
+							var value = item.value
+							now = new Date(parseInt(item.name));
+							var obj = {
+								'name': new Date(parseInt(item.name)).toString(),
+								'value': [
+									time,
+									parseInt(item.value)
+								]
+							}
+							return obj
+
+						})
+						that.xinData = resData
+						that.setDataXinChart()
+						that.setIntervalDownloadPeriod()
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
+		},
+		//柱状图数据
+		getDownloadTraffic() {
+			var that = this
+			// --流量
+			return axios.post(baseUrl + '/screenData/top10?key=downloadTraffic&num=12')
 				.then(function(res) {
 					var resData = res.data.data
 					if(resData != null || resData != undefined || resData != '') {
 						//图例数据转换
-						resData = resData.map(function(item){
+						resData = resData.map(function(item) {
 							return {
 								name: item.name,
-								value: Math.ceil(item.value/1024/1024)
+								value: Math.ceil(item.value / 1024 / 1024)
 							}
 						})
 						var dataObj = that.exchanDataTobar(resData)
@@ -485,60 +622,60 @@ var that = new Vue({
 					console.log(error);
 				});
 		},
-		getDownloadProvince(){
+		getDownloadProvince() {
 			var that = this
 			//分省下载量
-		 return	axios.post(baseUrl + '/screenData/top10?key=downloadProvince')
+			return axios.post(baseUrl + '/screenData/top10?key=downloadProvince')
 				.then(function(res) {
 					var resData = res.data.data
 					if(resData != null || resData != undefined || resData != '') {
 						//展示数据比例转换
 						var sum = 0;
-						resData.forEach(function(item){
+						resData.forEach(function(item) {
 							sum += item.value
 						})
 						that.toTalValueFen = sum
-						resData = resData.map(function(item){
+						resData = resData.map(function(item) {
 							return {
 								name: item.name,
-								value: Math.ceil(item.value/sum * that.downLoadTotal)
+								value: Math.ceil(item.value / sum * that.downLoadTotal)
 							}
 						})
-						
+						//地图数据也是一样
+						that.getCityData(resData)
 						var dataObj = that.exchanDataTobar(resData)
 						//绘图数据的顺序和排序刚好相反，前端展示的和实际顺序一样
 						//slice实现数组拷贝
 						that.downloadProvinceTop = dataObj.topData.slice(0).reverse()
 						var len = dataObj.seriesData.length
-						that.yAxisData6F = dataObj.yAxisData.slice(len-6, len)
-						that.seriesData6F = dataObj.seriesData.slice(len-6, len)
-						that.yAxisData12F = dataObj.yAxisData.slice(len-12, len-6)
-						that.seriesData12F = dataObj.seriesData.slice(len-12, len-6)
+						that.yAxisData6F = dataObj.yAxisData.slice(len - 6, len)
+						that.seriesData6F = dataObj.seriesData.slice(len - 6, len)
+						that.yAxisData12F = dataObj.yAxisData.slice(len - 12, len - 6)
+						that.seriesData12F = dataObj.seriesData.slice(len - 12, len - 6)
 						//that.initChart()
 					}
 
 				})
 				.catch(function(error) {
 					console.log(error);
-				
+
 				});
 		},
-		getDwnloadProvince(){
+		getDwnloadProvince() {
 			var that = this
 			//用户
-		  return axios.post(baseUrl + '/screenData/top10?key=downloadUser&num=12')
+			return axios.post(baseUrl + '/screenData/top10?key=downloadUser&num=12')
 				.then(function(res) {
 					var resData = res.data.data
 					if(resData != null || resData != undefined || resData != '') {
 						//图例数据转换
-						resData = resData.map(function(item){
+						resData = resData.map(function(item) {
 							return {
 								name: item.name,
 								value: item.value * 6
 							}
 						})
-						
-						
+
 						var dataObj = that.exchanDataTobar(resData)
 						//绘图数据的顺序和排序刚好相反，前端展示的和实际顺序一样
 						//slice实现数组拷贝
@@ -553,16 +690,22 @@ var that = new Vue({
 				})
 				.catch(function(error) {
 					console.log(error);
-					
+
 				});
 		},
 		getScreenDataT10() {
 			var that = this
-			axios.all([that.getDownloadTraffic(), that.getDownloadProvince(),that.getDwnloadProvince()])
-			.then(axios.spread(function (acct, perms) {
-			    // 柱状图请求现在都执行完成
-			    that.initChart()
-			  }));
+			axios.all([that.getDownloadTraffic(), that.getDownloadProvince(), that.getDwnloadProvince()])
+				.then(axios.spread(function(acct, perms) {
+					// 柱状图请求现在都执行完成
+					that.initChart()
+					//地图渲染
+					that.setMapChart()
+					if(that.showTooltipGloble) {
+						that.showMapTootip()
+					}
+					that.showTooltipGloble = false
+				}));
 
 		},
 		//柱状图构造返回数据格式
@@ -595,179 +738,165 @@ var that = new Vue({
 				seriesData: seriesData
 			}
 		},
-		getCityData() {
+		getCityData(resData) {
 			var that = this
-			return axios.post(baseUrl + '/screenData/top10?key=mapData')
-					.then(function(res) {
-						var resData = res.data.data
-						//展示数据比例转换
-						var sum = 0;
-						resData.forEach(function(item){
-							sum += item.value
-						})
-						that.toTalValueFen = sum
-						resData = resData.map(function(item){
-							return {
-								name: item.name,
-								value: Math.ceil(item.value/sum * that.downLoadTotal)
+			//求平均数
+			var arrTemp = []
+			resData.forEach(function(item) {
+				arrTemp.push(item.value)
+			})
+
+			function arrAverageNum(arr) {
+				var sum = 0;
+				for(var i = 0; i < arr.length; i++) {
+					sum += arr[i];
+				};
+				return ~~(sum / arr.length * 100) / 100;
+			}
+			PIERAND = arrAverageNum(arrTemp) / 6
+			if(resData != null || resData != undefined || resData != '') {
+				var temp = resData.map(function(item) {
+					return {
+						'name': item.name,
+						'value': item.value
+					}
+				})
+
+				that.cityData = temp
+				that.geoCoordMap = cityCp
+				var mapSeriesData = that.convertData(that.cityData)
+				//var showSeriesData = seriesData.slice(0)
+				var sortData = that.convertData(that.cityData.sort(function(a, b) {
+					return b.value - a.value;
+				}).slice(0, 6))
+				// 2、map的配置，配置 option，新建一个地理坐标系 geo ，地图类型为中国地图
+				that.mapoption = {
+					tooltip: {
+						padding: 0,
+						trigger: 'item',
+						formatter: function(params) {
+							let html = ''
+							html = '<div>' +
+								'<div style="dispaly:block;border: 1px solid #fbef1a69;padding:5px;font-size:18px;">' + params.name + ':' + params.value[2] + '</div>' +
+								'</div>'
+							return html
+						},
+/*						grid: {
+							left: 'auto',
+							height: 'auto',
+							x: 0,
+							y: 0,
+							x2: 0,
+							y2: 0
+						},*/
+						position: function(point, params, dom, rect, size) {
+							//其中point为当前鼠标的位置，size中有两个属性：viewSize和contentSize，分别为外层div和tooltip提示框的大小
+							var x = point[0]; //
+							var y = point[1];
+							var viewWidth = size.viewSize[0];
+							var viewHeight = size.viewSize[1];
+							var boxWidth = size.contentSize[0];
+							var boxHeight = size.contentSize[1];
+							var posX = 0; //x坐标位置
+							var posY = 0; //y坐标位置
+
+							if(x < boxWidth) { //左边放不开
+								posX = 5;
+							} else { //左边放的下
+								posX = x - boxWidth;
 							}
-						})
 
+							if(y < boxHeight) { //上边放不开
+								posY = 5;
+							} else { //上边放得下
+								posY = y - boxHeight;
+							}
 
+							return [posX + boxWidth, posY + boxHeight];
 
-						//求平均数
-						var arrTemp = []
-						resData.forEach(function(item) {
-							arrTemp.push(item.value)
-						})
+						},
 
-						function arrAverageNum(arr) {
-							var sum = 0;
-							for(var i = 0; i < arr.length; i++) {
-								sum += arr[i];
-							};
-							return ~~(sum / arr.length * 100) / 100;
+					},
+					geo: {
+						map: 'china',
+						label: {
+							emphasis: {
+								show: false
+							}
+						},
+						roam: true,
+						itemStyle: {
+							// 普通状态下的样式
+							normal: {
+								areaColor: 'transparent',
+								borderColor: '#3fdaff',
+								borderWidth: 2,
+								shadowColor: 'rgba(63, 218, 255, 0.5)',
+								shadowBlur: 30
+							},
+							// 高亮状态下的样式
+							emphasis: {
+								areaColor: '#2B91B7',
+							}
 						}
-						PIERAND = arrAverageNum(arrTemp) / 6
-						if(resData != null || resData != undefined || resData != '') {
-							var temp = resData.map(function(item) {
-								return {
-									'name': item.name,
-									'value': item.value
+					},
+					series: [{
+							name: '下载量',
+							type: 'scatter',
+							coordinateSystem: 'geo',
+							data: that.convertData(that.cityData),
+							symbolSize: function(val) {
+								return val[2] / PIERAND;
+							},
+							label: {
+								normal: {
+									formatter: '{b}',
+									position: 'right',
+									show: false
+								},
+								emphasis: {
+									show: true
 								}
-							})
-
-							that.cityData = temp
-							that.geoCoordMap = cityCp
-							var mapSeriesData = that.convertData(that.cityData)
-							//var showSeriesData = seriesData.slice(0)
-							var sortData = that.convertData(that.cityData.sort(function(a, b) {
-								return b.value - a.value;
-							}).slice(0, 6))
-							// 2、map的配置，配置 option，新建一个地理坐标系 geo ，地图类型为中国地图
-							that.mapoption = {
-								tooltip: {
-									padding:0,
-									trigger: 'item',
-									formatter: function(params) {
-										let html = ''
-										html = '<div>'+
-										        '<div style="dispaly:block;border: 1px solid #fbef1a69;padding:5px;font-size:18px;">' + params.name + ':' + params.value[2] + '</div>'+ 
-										      '</div>'
-										return html
-									},
-									position: function(point, params, dom, rect, size) {
-										//其中point为当前鼠标的位置，size中有两个属性：viewSize和contentSize，分别为外层div和tooltip提示框的大小
-										var x = point[0]; //
-										var y = point[1];
-										var viewWidth = size.viewSize[0];
-										var viewHeight = size.viewSize[1];
-										var boxWidth = size.contentSize[0];
-										var boxHeight = size.contentSize[1];
-										var posX = 0; //x坐标位置
-										var posY = 0; //y坐标位置
-
-										if(x < boxWidth) { //左边放不开
-											posX = 5;
-										} else { //左边放的下
-											posX = x - boxWidth;
-										}
-
-										if(y < boxHeight) { //上边放不开
-											posY = 5;
-										} else { //上边放得下
-											posY = y - boxHeight;
-										}
-
-										return [posX+boxWidth, posY+boxHeight];
-
-									},
-
-								},
-								geo: {
-									map: 'china',
-									label: {
-										emphasis: {
-											show: false
-										}
-									},
-									roam: true,
-									itemStyle: {
-										// 普通状态下的样式
-										normal: {
-											areaColor: 'transparent',
-											borderColor: '#3fdaff',
-											borderWidth: 2,
-											shadowColor: 'rgba(63, 218, 255, 0.5)',
-											shadowBlur: 30
-										},
-										// 高亮状态下的样式
-										emphasis: {
-											areaColor: '#2B91B7',
-										}
-									}
-								},
-								series: [{
-										name: '下载量',
-										type: 'scatter',
-										coordinateSystem: 'geo',
-										data: that.convertData(that.cityData),
-										symbolSize: function(val) {
-											return val[2] / PIERAND;
-										},
-										label: {
-											normal: {
-												formatter: '{b}',
-												position: 'right',
-												show: false
-											},
-											emphasis: {
-												show: true
-											}
-										},
-										itemStyle: {
-											normal: {
-												color: '#ddb926'
-											}
-										}
-									},
-									{
-										name: 'Top 5',
-										type: 'effectScatter',
-										coordinateSystem: 'geo',
-										data: sortData,
-										symbolSize: function(val) {
-											return val[2] / PIERAND;
-										},
-										showEffectOn: 'render',
-										rippleEffect: {
-											brushType: 'stroke'
-										},
-										hoverAnimation: true,
-										label: {
-											normal: {
-												formatter: '{b}',
-												position: 'right',
-												show: true
-											}
-										},
-										itemStyle: {
-											normal: {
-												color: '#f4e925',
-												shadowBlur: 10,
-												shadowColor: '#333'
-											}
-										},
-										zlevel: 1
-									}
-								]
-							};
-
+							},
+							itemStyle: {
+								normal: {
+									color: '#ddb926'
+								}
+							}
+						},
+						{
+							name: 'Top 5',
+							type: 'effectScatter',
+							coordinateSystem: 'geo',
+							data: sortData,
+							symbolSize: function(val) {
+								return val[2] / PIERAND;
+							},
+							showEffectOn: 'render',
+							rippleEffect: {
+								brushType: 'stroke'
+							},
+							hoverAnimation: true,
+							label: {
+								normal: {
+									formatter: '{b}',
+									position: 'right',
+									show: true
+								}
+							},
+							itemStyle: {
+								normal: {
+									color: '#f4e925',
+									shadowBlur: 10,
+									shadowColor: '#333'
+								}
+							},
+							zlevel: 1
 						}
+					]
+				};
 
-					})
-					.catch(function(error) {
-					});
+			}
 
 		},
 		//（4）将数据和城市坐标对应上
@@ -794,20 +923,24 @@ var that = new Vue({
 			var that = this
 			//3、调用 setOption(option) 为图表设置配置项
 			that.mapChart.setOption(that.mapoption);
+
+		},
+		//动态动态显示tootip
+		showMapTootip() {
 			// 动态显示tootip
-			var faultByHourIndex = 0; //播放所在下标
 			var faultByHourTime = setInterval(function() { //使得tootip每隔三秒自动显示
 				that.mapChart.dispatchAction({
 					type: 'showTip', // 根据 tooltip 的配置项显示提示框。
 					seriesIndex: 0,
-					dataIndex: faultByHourIndex
+					dataIndex: that.faultByHourIndex
 				});
-				faultByHourIndex++;
+				that.faultByHourIndex++;
+
 				// mapoption.series[0].data.length 是已报名纵坐标数据的长度
-				if(faultByHourIndex > that.mapoption.series[0].data.length) {
-					faultByHourIndex = 0;
+				if(that.faultByHourIndex >= that.mapoption.series[0].data.length) {
+					that.faultByHourIndex = 0;
 					//去掉定时器的方法  
-				    window.clearInterval(faultByHourTime)
+					//window.clearInterval(faultByHourTime)
 				}
 			}, 10 * 1000);
 		},
@@ -815,21 +948,22 @@ var that = new Vue({
 			var that = this
 			return new Promise(function(resolve, reject) {
 				axios.post(baseUrl + '/screenData/total')
-				.then(function(res) {
-					var resData = res.data.data
-					if(resData != null || resData != undefined || resData != '') {
-						var total = res.data.data.downloadTotal
-						that.downLoadTotal = total
-						$('.down-app-total').empty()
-						$('.down-app-total').rollNum({
-							deVal: total
-						});	
-						resolve(total);
-					}
-				})
-				.catch(function(error) {
-					reject(error);
-				});
+					.then(function(res) {
+						var resData = res.data.data
+						if(resData != null || resData != undefined || resData != '') {
+							var total = res.data.data.downloadTotal
+							that.downLoadTotal = total
+							/*$('.odometer').html(total)*/
+							//$('.down-app-total').empty()
+							$('.down-app-total').rollNum({
+								deVal: total
+							});
+							resolve(total);
+						}
+					})
+					.catch(function(error) {
+						reject(error);
+					});
 			})
 
 		},
@@ -840,8 +974,9 @@ var that = new Vue({
 			var d = date.getDate();
 			this.nowDate = y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
 		},
-		setTime() {
-			var time = new Date(); //获取系统当前时间
+		setTime(nowDate) {
+			var time = '';
+			time = new Date();
 			var hour = time.getHours();
 			var minutes = time.getMinutes();
 			var seconds = time.getSeconds();
@@ -856,9 +991,71 @@ var that = new Vue({
 			}
 			this.nowTime = hour + ":" + minutes + ":" + seconds;
 		},
+		formaTime(nowDate) {
+			var date = '',
+				time = '';
+			if(nowDate == '' || nowDate == undefined || nowDate == null) {
+				time = new Date();
+			} else {
+				time = new Date(parseInt(nowDate))
+			}
+			var hour = time.getHours();
+			var minutes = time.getMinutes();
+			var seconds = time.getSeconds();
+			if(hour < 10) {
+				hour = "0" + hour;
+			}
+			if(minutes < 10) {
+				minutes = "0" + minutes;
+			}
+			if(seconds < 10) {
+				seconds = "0" + seconds;
+			}
+			return {
+				'H': hour,
+				'M': minutes,
+				'S': seconds
+			}
+		},
+		setIntervalDownloadPeriod() {
+			setInterval(() => {
+				// --心跳数据
+				return axios.post(baseUrl + '/screenData/top10?key=downloadCurrent')
+					.then(function(res) {
+						var resData = res.data.data
+						if(resData != null || resData != undefined || resData != '') {
+							resData = resData.map(function(item) {
+								var timeObj = that.formaTime(item.name)
+								var time = timeObj.H + ':' + timeObj.M + ':' + timeObj.S
+								var value = item.value
+								var obj = {
+									'name': new Date(parseInt(item.name)).toString(),
+									'value': [
+										time,
+										parseInt(item.value)
+									]
+								}
+								return obj
+
+							})
+							var temp = that.xinData.slice()
+							temp.shift();
+							temp = temp.concat(resData);
+							that.xinData = temp
+							that.setDataXinChart()
+						}
+					})
+					.catch(function(error) {
+						console.log(error);
+					});
+
+				this.setDataXinChart()
+
+			}, 5 * 1000)
+		}
+
 	},
-	watch: {
-	},
+	watch: {},
 	created: function() {
 		//获取地图数据
 
@@ -917,13 +1114,18 @@ var that = new Vue({
 			"width": 8.8 * window.FONTSIZE + "px",
 			"height": 6.7 * window.FONTSIZE + "px"
 		})
+		$('.xintiao-map').css({
+			"width": 8.8 * window.FONTSIZE + "px",
+			"height": 2.5 * window.FONTSIZE + "px"
+		})
 		this.initMapChart()
 		//首次加载获取接口
 		this.getTop12()
 		this.getTopOther12()
-		
-		
-		
+		this.initXinChart()
+		//心跳首次加载
+		this.getDownloadPeriod()
+
 		this.showOrHide()
 		//时间
 		this.setDate()
@@ -934,38 +1136,29 @@ var that = new Vue({
 		setInterval(() => {
 			this.setTime()
 		}, 1000)
-		
-       //中间下载量
-		this.setTotalDownNum().then(()=>{
-  			//必须保证下载总量在前面获取到
+
+		//中间下载量
+		this.setTotalDownNum().then(() => {
+			//必须保证下载总量在前面获取到
 			this.getScreenDataT10()
-			//地图数据也需要依赖总量转换
-			axios.all([that.getCityData()])
-			  .then(axios.spread(function (acct, perms) {
-			    // 请求现在都执行完成
-			    that.setMapChart()
-			  }));
+
 		})
 
 		setInterval(() => { //图例接口延迟
 			//接口轮询请求
-			
+
 			//右侧下载量
 			this.getTop12()
 			this.getTopOther12()
-			//地图数据
-			this.getCityData().then(()=>{
-				this.setMapChart()
-			})
-			
-			//中间下载量
-			this.setTotalDownNum().then(()=>{
-			  //必须保证下载总量在前面获取到
-			this.getScreenDataT10()
 
-		})
-			
-		}, 1000 * 30 )
+			//中间下载量
+			this.setTotalDownNum().then(() => {
+				//必须保证下载总量在前面获取到
+				this.getScreenDataT10()
+
+			})
+
+		}, 1000 * 30)
 
 	},
 
