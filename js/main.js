@@ -565,14 +565,13 @@ var that = new Vue({
 					var resData = res.data.data
 					if(resData != null || resData != undefined || resData != '') {
 						var sortData = resData.sort(function(x,y){
-							return parseInt(y.name)-parseInt(x.name)
+							return parseInt(x.name) - parseInt(y.name)
 						})
 
 						resData = sortData.map(function(item) {
 							var timeObj = that.formaTime(item.name)
 							var time = timeObj.H + ':' + timeObj.M + ':' + timeObj.S
 							var value = item.value
-							now = new Date(parseInt(item.name));
 							var obj = {
 								'name': new Date(parseInt(item.name)).toString(),
 								'value': [
@@ -690,7 +689,6 @@ var that = new Vue({
 				})
 				.catch(function(error) {
 					console.log(error);
-
 				});
 		},
 		getScreenDataT10() {
